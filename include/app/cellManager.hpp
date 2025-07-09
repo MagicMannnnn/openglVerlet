@@ -2,6 +2,8 @@
 
 #include <array>
 #include <app/ball.hpp>
+#include <algorithm>
+
 
 template<int cellCapacity, int rows, int cols, int Nballs>
 class CellManager {
@@ -26,10 +28,16 @@ public:
 			int x = std::floor((ball.pos.x + 1.f) * cellWidth);
 			int y = std::floor((ball.pos.y + 1.f) * cellHeight);
 
-			std::cout << x << ", " << y << "\n";
+			x = std::clamp(x, 0, cols - 1);
+			y = std::clamp(y, 0, rows - 1);
 
-			grid[y][x][grid[y][x][0]] = i;
-			grid[y][x][0]++;
+
+			int& count = grid[y][x][0];
+			if (count < cellCapacity) {
+				grid[y][x][count] = i;
+				count++;
+			}
+
 		}
 	}
 
@@ -77,11 +85,11 @@ public:
 			Ball& ball = balls[cell[i]];
 			
 			for (int j = 1; j < cell2[0]; j++) {
-				Ball& ball2 = balls[cell2[i]];
+				Ball& ball2 = balls[cell2[j]];
 				ball.collide(ball2);
 			}
 
-			ball.update(dt);
+			
 		}
 	}
 

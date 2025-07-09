@@ -23,13 +23,14 @@ void App::run() {
 
 	int ballSpawnCounter = 0;
 
-
+	int ballCounter = 0;
 
 	//std::chrono::high_resolution_clock::time_point start, end;
 	const std::chrono::duration<double, std::milli> frame_time(m_context.getFixedDeltaTime() * 1000.f);
 
 	while (!m_window.shouldClose()) {
 
+		m_context.updateDeltaTime();
 		auto start = std::chrono::high_resolution_clock::now();
 
 		m_window.pollEvents();
@@ -52,16 +53,28 @@ void App::run() {
 				elapsed = end - start;				
 			}
 
-			
+			ballSpawnCounter++;
+
+			if (ballSpawnCounter == 10) {
+				m_ballManager.addBall({ -0.8f, 0.8f }, 0.01f);
+				m_ballManager.addBall({ -0.6f, 0.8f }, 0.01f);
+				m_ballManager.addBall({ -0.4f, 0.8f }, 0.01f);
+				m_ballManager.addBall({ -0.2f, 0.8f }, 0.01f);
+				m_ballManager.addBall({ 0.f, 0.8f }, 0.01f);
+				m_ballManager.addBall({ 0.8f, 0.8f }, 0.01f);
+				m_ballManager.addBall({ 0.6f, 0.8f }, 0.01f);
+				m_ballManager.addBall({ 0.4f, 0.8f }, 0.01f);
+				m_ballManager.addBall({ 0.2f, 0.8f }, 0.01f);
+
+
+				ballSpawnCounter = 0;
+				ballCounter += 9;
+				std::cout << "balls: " << ballCounter << "  ,dt: " << m_context.deltaTime << "\n";
+			}
 			
 		}
 
-		ballSpawnCounter++;
-
-		if (ballSpawnCounter == 1) {
-			m_ballManager.addBall({ -0.8f, 0.8f }, { -0.801f, 0.79f }, 0.04f);
-			ballSpawnCounter = 0;
-		}
+		
 
 
 		

@@ -53,7 +53,11 @@ public:
 	void update(float dt) {
 
 		m_cellManager.makeCells(m_balls, m_lastBallPointer);
-		m_cellManager.collideCells(m_balls, dt);
+
+		for (int i = 0; i < 8; i++) {
+			m_cellManager.collideCells(m_balls, dt / 8.f);
+		}
+		
 
 		/*
 		for (int i = 0; i <= m_lastBallPointer; i++) {
@@ -84,7 +88,7 @@ public:
 	void addBall(const glm::vec2& center, float radius) {
 		if (m_lastBallPointer == N-1) return;
 		m_lastBallPointer++;
-		m_balls[m_lastBallPointer] = Ball(center, radius);
+		m_balls[m_lastBallPointer] = Ball(center, center - glm::vec2{0.001f, 0.f}, radius);
 	}
 
 	void addBall(const glm::vec2& center, const glm::vec2& Pcenter, float radius) {
@@ -110,7 +114,7 @@ private:
 	};
 	unsigned int quadVBO, VAO, EBO, instanceVBO;
 
-	CellManager<N, 10, 10, N> m_cellManager;
+	CellManager<N / 30, 30, 30, N> m_cellManager;
 	
 
 };

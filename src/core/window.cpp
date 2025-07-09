@@ -9,7 +9,7 @@ Window::Window(AppContext& ctx, const std::string& title)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    //glfwWindowHint(GLFW_DECORATED, GLFW_FALSE); 
+    glfwWindowHint(GLFW_DECORATED, GLFW_FALSE); 
 
     GLFWmonitor* monitor = glfwGetPrimaryMonitor();
     const GLFWvidmode* mode = glfwGetVideoMode(monitor);

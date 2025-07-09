@@ -16,7 +16,7 @@ public:
 private:
 	AppContext& m_context;
 	Window& m_window;
-	BallManager<200> m_ballManager;
+	BallManager<5000> m_ballManager;
 	Backround m_backround;
 
 
